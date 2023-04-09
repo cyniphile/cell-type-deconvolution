@@ -1,27 +1,13 @@
-# Install
+# Cell Type Deconvolution
 
-- [Install docker](https://docs.docker.com/get-docker/) and start the daemon.
-- `docker-compose up`  will start the container and print URLs to connect to the jupyter web UI.
-	- If you're using VSCode, install the [Remote Development Extensions Pack](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.vscode-remote-extensionpack) to easily run code and otherwise work within the docker container. 
-	- Attach to the `{repo_name}-notebook-1` container.
-	- Be sure to install the VSCode python extension in the *remote* container as well. 
 
-- The Prefect UI is available at `http://localhost:4200/` to view jobs.
-- Jupyter notebooks are available at `http://localhost:8888/`. 
-  - Ensure that notebooks are "trusted" in the top right corner to display interactive plots.
-- Download data: `docker compose exec -i notebook python download_data.py` 
+Code for testing out various methods of cell-type deconvolution of bulk GEP data. The methods are described in the following papers:
 
-## Non-Docker Usage
+- Abbas et al. 2009:  [Deconvolution of Blood Microarray Data Identifies Cellular Activation Patterns...](https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0006098)
+- Gong et al. 2011: [Optimal Deconvolution of Transcriptional Profiling Data Using Quadratic Programming...](https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0027156) 
+- Newman et al. 2015: [Robust enumeration of cell subsets from tissue expression profiles](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4739640/)
 
-You can use poetry to setup an environment without Docker to reduce overhead. 
 
-- Install [poetry](https://python-poetry.org/docs/).
-- Configure to create virtual environments in project: `poetry config settings.virtualenvs.in-project true`
-- `poetry install` and point your notebooks to the new venv.
-- To add/remove packages:
-  - `poetry {add|remove} {package}` 
-  - `poetry export -f requirements.txt --output requirements.txt --without-hashes`. 
-  - To update docker containers, run `docker-compose up --build` to rebuild the image with new packages, or, for faster turnaround, `docker-compose exec notebook pip install -r /usr/src/app/requirements.txt`
-- Prefect orion server, etc need to be started manually using the commands in
-  `docker-compose.yml`
+## Usage
 
+Download and extract the data by running `ETL.ipynb`.  This will download the data from GEO and save it in the `data` directory. `Anaylsis.ipynb` contains the code for running the deconvolution methods and plotting the results.
