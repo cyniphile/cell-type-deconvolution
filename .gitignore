@@ -1,4 +1,5 @@
 data/*
 !data/*.md
+!data/HumanHT-12_v4.txt
 __pycache__/
 .vscode/
